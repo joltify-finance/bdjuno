@@ -18,8 +18,8 @@ CREATE INDEX pre_commit_height_index ON pre_commit (height);
 
 CREATE TABLE block
 (
-    height           BIGINT UNIQUE PRIMARY KEY,
-    hash             TEXT                        NOT NULL UNIQUE,
+    height           BIGINT  UNIQUE PRIMARY KEY,
+    hash             TEXT    NOT NULL UNIQUE,
     num_txs          INTEGER DEFAULT 0,
     total_gas        BIGINT  DEFAULT 0,
     proposer_address TEXT REFERENCES validator (consensus_address),
@@ -38,7 +38,7 @@ ALTER TABLE block
 
 CREATE TABLE transaction
 (
-    hash         TEXT    NOT NULL UNIQUE PRIMARY KEY,
+    hash         TEXT    NOT NULL,
     height       BIGINT  NOT NULL REFERENCES block (height),
     success      BOOLEAN NOT NULL,
 
@@ -77,7 +77,8 @@ CREATE TABLE message
     index                       BIGINT NOT NULL,
     type                        TEXT   NOT NULL,
     value                       JSONB  NOT NULL,
-    involved_accounts_addresses TEXT[] NULL,
+    involved_accounts_addresses TEXT[] NOT NULL,
+
     /* Psql partition */
     partition_id                BIGINT NOT NULL,
     height                      BIGINT NOT NULL,
@@ -85,7 +86,7 @@ CREATE TABLE message
 )PARTITION BY LIST(partition_id);
 CREATE INDEX message_transaction_hash_index ON message (transaction_hash);
 CREATE INDEX message_type_index ON message (type);
-CREATE INDEX message_involved_accounts_addresses ON message (involved_accounts_addresses);
+CREATE INDEX message_involved_accounts_index ON message (involved_accounts_addresses);
 
 /**
  * This function is used to find all the utils that involve any of the given addresses and have
@@ -98,12 +99,11 @@ CREATE FUNCTION messages_by_address(
     "offset" BIGINT = 0)
     RETURNS SETOF message AS
 $$
-SELECT message.transaction_hash, message.index, message.type, message.value, message.involved_accounts_addresses
+SELECT message.transaction_hash, message.index, message.type, message.value, message.involved_accounts_addresses, message.partition_id, message.height
 FROM message
-         JOIN transaction t on message.transaction_hash = t.hash
 WHERE (cardinality(types) = 0 OR type = ANY (types))
-  AND addresses && involved_accounts_addresses
-ORDER BY height DESC
+  AND involved_accounts_addresses && addresses 
+ORDER BY height DESC, involved_accounts_addresses
 LIMIT "limit" OFFSET "offset"
 $$ LANGUAGE sql STABLE;
 
