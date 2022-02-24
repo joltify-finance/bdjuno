@@ -138,7 +138,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		feegrantModule,
 		gov.NewModule(sources.GovSource, authModule, bankModule, distrModule, mintModule, profilesModule, slashingModule, stakingModule, cdc, db),
 		historyModule,
-		mint.NewModule(sources.MintSource, cdc, db),
+		mintModule,
 		modules.NewModule(ctx.JunoConfig.Chain, db),
 		pricefeed.NewModule(ctx.JunoConfig, historyModule, cdc, db),
 		profilesModule,

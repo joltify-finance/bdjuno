@@ -4,9 +4,9 @@ go 1.16
 
 require (
 	github.com/cosmos/cosmos-sdk v0.44.4
-	github.com/cosmos/gaia/v6 v6.0.0-rc1
+	github.com/cosmos/gaia/v6 v6.0.3
 	github.com/desmos-labs/desmos/v2 v2.3.1
-	github.com/forbole/juno/v2 v2.0.0-20220221135600-b90fff0cdf47 // update this when juno #45 is merged
+	github.com/forbole/juno/v2 v2.0.0-20220223115732-dbb226a91ce9
 	github.com/go-co-op/gocron v1.11.0
 	github.com/gogo/protobuf v1.3.3
 	github.com/jmoiron/sqlx v1.2.1-0.20200324155115-ee514944af4b
@@ -19,6 +19,7 @@ require (
 	github.com/tendermint/tendermint v0.34.14
 	google.golang.org/grpc v1.42.0
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+
 )
 
 replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1

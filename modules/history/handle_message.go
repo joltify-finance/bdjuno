@@ -4,13 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gogo/protobuf/proto"
-
-	juno "github.com/forbole/juno/v2/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"github.com/forbole/bdjuno/v2/modules/utils"
+	juno "github.com/forbole/juno/v2/types"
+	"github.com/gogo/protobuf/proto"
 )
 
 // HandleMsg implements modules.MessageModule
