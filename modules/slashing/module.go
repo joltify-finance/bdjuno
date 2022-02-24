@@ -16,7 +16,7 @@ var (
 
 // Module represent x/slashing module
 type Module struct {
-	cdc    codec.Marshaler
+	cdc    codec.Codec
 	db     *database.Db
 	source slashingsource.Source
 
@@ -24,7 +24,7 @@ type Module struct {
 }
 
 // NewModule returns a new Module instance
-func NewModule(source slashingsource.Source, stakingModule StakingModule, cdc codec.Marshaler, db *database.Db) *Module {
+func NewModule(source slashingsource.Source, stakingModule StakingModule, cdc codec.Codec, db *database.Db) *Module {
 	return &Module{
 		cdc:           cdc,
 		db:            db,

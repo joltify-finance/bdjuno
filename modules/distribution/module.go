@@ -22,7 +22,7 @@ var (
 
 // Module represents the x/distr module
 type Module struct {
-	cdc        codec.Marshaler
+	cdc        codec.Codec
 	cfg        *Config
 	db         *database.Db
 	source     distrsource.Source
@@ -30,7 +30,7 @@ type Module struct {
 }
 
 // NewModule returns a new Module instance
-func NewModule(cfg config.Config, source distrsource.Source, bankModule BankModule, cdc codec.Marshaler, db *database.Db) *Module {
+func NewModule(cfg config.Config, source distrsource.Source, bankModule BankModule, cdc codec.Codec, db *database.Db) *Module {
 	distrCfg, err := ParseConfig(cfg.GetBytes())
 	if err != nil {
 		panic(err)

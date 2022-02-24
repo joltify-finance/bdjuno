@@ -19,7 +19,7 @@ var (
 
 // Module represent x/gov module
 type Module struct {
-	cdc            codec.Marshaler
+	cdc            codec.Codec
 	db             *database.Db
 	source         govsource.Source
 	authModule     AuthModule
@@ -39,7 +39,7 @@ func NewModule(
 	mintModule MintModule,
 	slashingModule SlashingModule,
 	stakingModule StakingModule,
-	cdc codec.Marshaler,
+	cdc codec.Codec,
 	db *database.Db,
 ) *Module {
 	return &Module{
