@@ -1,5 +1,5 @@
 chain:
-    bech32_prefix: jolt
+    bech32_prefix: oppy
     modules:
         - modules
         - messages
@@ -16,11 +16,11 @@ node:
     type: remote
     config:
         rpc:
-            client_name: joltify
-            address: http://rpc.joltify.io:26657
+            client_name: oppy
+            address: https://rpc.oppy.zone
             max_connections: 20
         grpc:
-            address:  http://grpc.joltify.io:9090
+            address:  http://rpc.oppy.zone:9090
             insecure: true
 parsing:
     workers: 1
